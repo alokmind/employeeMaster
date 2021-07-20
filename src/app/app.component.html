@@ -1,0 +1,102 @@
+<div class="padd-box">
+  <h1 class="text-center">Employee Master</h1>
+  <div class="container">
+    <div class="toolbar">
+      <form form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Employee Code</mat-label>
+              <input type="text" formControlName="empCode" autocomplete="off" matInput>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Employee Name</mat-label>
+              <input type="text" formControlName="empName" autocomplete="off" matInput
+                (keypress)="_apiService.checkForAplphabetsWithSpace($event.keyCode)">
+            </mat-form-field>
+          </p>
+        </div>
+        <div>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Date of Birth</mat-label>
+              <input [matDatepicker]="picker" formControlName="dob" autocomplete="off" matInput readonly
+                (click)="picker.open()" [max]="today">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Mobile No.</mat-label>
+              <input type="text" formControlName="mobile" autocomplete="off" matInput maxlength="10"
+                (keypress)="_apiService.checkForNumerics($event.keyCode)">
+            </mat-form-field>
+          </p>
+        </div>
+        <div class="full-form">
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Address</mat-label>
+              <input type="text" formControlName="address" autocomplete="off" matInput>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Remark</mat-label>
+              <textarea type="text" formControlName="remark" autocomplete="off" matInput></textarea>
+            </mat-form-field>
+          </p>
+        </div>
+        <button type="submit" mat-raised-button color="primary">Submit</button>&nbsp;&nbsp;
+        <button type="reset" mat-raised-button color="accent">Clear</button>
+      </form>
+    </div>
+    <div class="table-box">
+      <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource">
+
+        <ng-container matColumnDef="empCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.empCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="empName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.empName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dob">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </th>
+          <td mat-cell *matCellDef="let element"> {{element.dob | date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="remark">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Remark </th>
+          <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon color="warn" class="del" (click)="deleteEmployee(element.empCode)">delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>

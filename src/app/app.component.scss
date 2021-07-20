@@ -1,0 +1,68 @@
+.text-center{
+    text-align: center;
+}
+
+.padd-box{
+    padding: 10px 20px 10px 20px;
+
+    h1{
+        margin: 0;
+    }
+    
+    .container{
+        margin: 0 auto;
+
+        .toolbar{
+            display: flex;
+            justify-content: center;
+
+            form{
+                margin: 10px 0;
+                text-align: center;
+                div{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    p{
+                        margin: 0 10px;
+                    }
+                }
+                .full-form{
+                    display: block;
+                    .mat-form-field{
+                        width: 100%;
+                    }
+                }
+            }
+
+            .mat-form-field{
+                width: 250px;
+            }
+
+            button{
+                top: -4px;
+            }
+        }
+        
+        .table-box{
+            // height: calc(50vh - 58px);
+            // overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+
+            td,th{
+                padding-left: 10px;
+                min-width: 80px;
+            }
+
+            .del{
+                cursor: pointer;
+            }
+        }
+    
+    }
+
+}
+
