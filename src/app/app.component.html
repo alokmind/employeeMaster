@@ -91,7 +91,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
           <td mat-cell *matCellDef="let element">
             <mat-icon color="warn" class="del" (click)="deleteEmployee(element.empCode)">delete</mat-icon>&nbsp;&nbsp;&nbsp;
-            <mat-icon class="del" (click)="setFormValue(element.empCode)">edit</mat-icon>
+            <mat-icon color="primary" class="del" (click)="setFormValue(element.empCode)">edit</mat-icon>
           </td>
         </ng-container>
 
