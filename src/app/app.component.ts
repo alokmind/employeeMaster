@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   dataSource: any = [];
   today = new Date();
   employeeForm: FormGroup;
-
+  editFlg = '0';
 
   constructor(private formBuilder: FormBuilder, public _apiService: DataService, private _snackBar: MatSnackBar) { }
 
@@ -32,6 +32,10 @@ export class AppComponent implements OnInit {
     });
 
     this.showTableData();
+  }
+
+  clear(){
+    this.editFlg = '0';
   }
 
 
@@ -78,7 +82,9 @@ export class AppComponent implements OnInit {
     localStorage.setItem('data', JSON.stringify(data));
     let msg;
     if (action === 'save') {
-      msg = "Employee Data Saved";
+      msg = "Employee Added";
+    } else if(action === 'edit') {
+      msg = "Employee Updated";
     } else {
       msg = "Employee Deleted";
     }
@@ -109,8 +115,27 @@ export class AppComponent implements OnInit {
     if (i > -1) {
       data.splice(i, 1);
     }
-
     this.saveData(data);
+  }
 
+  setFormValue(id){
+    let data = this.getEmpData();
+    this.editFlg = data.findIndex(e => e.empCode === id);
+
+    console.log(data[this.editFlg]);
+    this.employeeForm.patchValue({
+      empCode: data[this.editFlg].empCode,
+      empName: data[this.editFlg].empName,
+      address: data[this.editFlg].address,
+      mobile: data[this.editFlg].mobile,
+      dob: new Date(data[this.editFlg].dob),
+      remark: data[this.editFlg].remark,
+    });
+  }
+
+  update(){
+    let data = this.getEmpData();
+    data[this.editFlg] = this.employeeForm.value;
+    this.saveData(data, 'edit');
   }
 }
